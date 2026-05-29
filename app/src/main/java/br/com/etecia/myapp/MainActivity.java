@@ -13,6 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -37,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
         carregaFilmes();
     }
 
-    private void carregaFilmes(){
+    private void carregaFilmes() {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://sua-api.com")
                 .addConverterFactory(GsonConverterFactory.create())
@@ -45,6 +47,20 @@ public class MainActivity extends AppCompatActivity {
         ApiService apiService = retrofit.create(ApiService.class);
         Call<List<Filme>> call = apiService.getFilmes();
 
-        
+        call.enqueue(new Callback<List<Filme>>() {
+            @Override
+            public void onResponse(Call<List<Filme>> call, Response<List<Filme>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    List<Filme> filmes = response.body();
+                    adapter = new FilmeAdapter(filmes);
+                    idRecFilmes.setAdapter(adapter);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Filme>> call, Throwable throwable) {
+
+            }
+        });
     }
 }
