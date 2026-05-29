@@ -1,6 +1,7 @@
 package br.com.etecia.myapp;
 
 import android.os.Bundle;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -58,7 +59,8 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<List<Filme>> call, Throwable throwable) {
+            public void onFailure(Call<List<Filme>> call, Throwable t) {
+                Toast.makeText(MainActivity.this, "Erro: " + t.getMessage(), Toast.LENGTH_SHORT).show();
 
             }
         });
