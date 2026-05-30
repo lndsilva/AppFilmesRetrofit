@@ -69,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<FilmeResposta> call, Throwable t) {
+                t.printStackTrace();
                 Toast.makeText(MainActivity.this, "Falha na rede "+t.getMessage(), Toast.LENGTH_SHORT).show();
 
             }
