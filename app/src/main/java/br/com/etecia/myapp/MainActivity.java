@@ -41,8 +41,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void carregaFilmes() {
+
+        String URL_BASE = "https://themoviedb.org";
+
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://sua-api.com")
+                .baseUrl(URL_BASE)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         ApiService apiService = retrofit.create(ApiService.class);
