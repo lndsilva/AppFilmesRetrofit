@@ -1,13 +1,12 @@
 package br.com.etecia.myapp;
 
-public class Filme {
-    private String titulo;
-    private String urlCapa;
+import com.google.gson.annotations.SerializedName;
 
-    public Filme(String titulo, String urlCapa) {
-        this.titulo = titulo;
-        this.urlCapa = urlCapa;
-    }
+public class Filme {
+    @SerializedName("title")
+    private String titulo;
+    @SerializedName("poster_url")
+    private String urlCapa;
 
     public String getTitulo() {
         return titulo;

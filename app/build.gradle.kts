@@ -43,6 +43,8 @@ dependencies {
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
     implementation(libs.gson)
+    implementation("com.github.bumptech.glide:glide:5.0.7")
+    annotationProcessor("com.github.bumptech.glide:compiler:5.0.7")
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.espresso.core)
