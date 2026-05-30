@@ -44,28 +44,36 @@ public class MainActivity extends AppCompatActivity {
 
         String URL_BASE = "https://themoviedb.org";
 
+        String API_KEY = BuildConfig.TMDB_KEY;
+
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(URL_BASE)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         ApiService apiService = retrofit.create(ApiService.class);
-        Call<List<Filme>> call = apiService.getFilmes();
 
-        call.enqueue(new Callback<List<Filme>>() {
+        Call<FilmeResposta> call = apiService.getFilmes(API_KEY, "pt-BR");
+
+        call.enqueue(new Callback<FilmeResposta>() {
             @Override
-            public void onResponse(Call<List<Filme>> call, Response<List<Filme>> response) {
+            public void onResponse(Call<FilmeResposta> call, Response<FilmeResposta> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    List<Filme> filmes = response.body();
+                    List<Filme> filmes = response.body().getResultados();
+
                     adapter = new FilmeAdapter(filmes);
                     idRecFilmes.setAdapter(adapter);
+                }else{
+                    Toast.makeText(MainActivity.this, "Erro na API"+response.code(), Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
-            public void onFailure(Call<List<Filme>> call, Throwable t) {
-                Toast.makeText(MainActivity.this, "Erro: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            public void onFailure(Call<FilmeResposta> call, Throwable t) {
+                Toast.makeText(MainActivity.this, "Falha na rede "+t.getMessage(), Toast.LENGTH_SHORT).show();
 
             }
         });
+
+
     }
 }

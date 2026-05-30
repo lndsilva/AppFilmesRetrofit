@@ -5,8 +5,10 @@ import com.google.gson.annotations.SerializedName;
 public class Filme {
     @SerializedName("title")
     private String titulo;
-    @SerializedName("poster_url")
+
+    @SerializedName("poster_path")
     private String urlCapa;
+
 
     public String getTitulo() {
         return titulo;
@@ -16,8 +18,12 @@ public class Filme {
         this.titulo = titulo;
     }
 
+
     public String getUrlCapa() {
-        return urlCapa;
+        if (urlCapa != null && !urlCapa.isEmpty()) {
+            return "https://tmdb.org" + urlCapa;
+        }
+        return null;
     }
 
     public void setUrlCapa(String urlCapa) {
